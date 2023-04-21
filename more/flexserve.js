@@ -50,7 +50,8 @@ module.exports = {
 		},
 		async file(url,configurationHeader){
 			fs.exists(url,(exist)=>{
-				if(exist)fs.createReadStream(url).pipe(this)
+				this.writeHead(200,{'content-type':'image/png'});
+				if(exist)fs.createReadStream(url).pipe(this);
 				else this.json({err:true,msg:'file not found!'})
 			})
 		}
