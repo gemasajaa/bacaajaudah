@@ -11,6 +11,7 @@ module.exports = {
 		res.file(`./more/public/styles/${fn}.release.css`);
 	},
 	"/file"(fn,res,cDir='public/media'){
-		res.file(`./more/${cDir}/${fn}`);
+		//handline filetype.
+		res.file(`./more/${cDir}/${fn}`,{'content-type':'image/png'});
 	}
 }

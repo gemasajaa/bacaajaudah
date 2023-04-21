@@ -48,9 +48,9 @@ module.exports = {
 			this.writeHead(status,HeadConfiguration);
 			this.end(something.toString());
 		},
-		async file(url,configurationHeader){
+		async file(url,configurationHeader={'content-type':'text/html'}){
 			fs.exists(url,(exist)=>{
-				this.writeHead(200,{'content-type':'png'});
+				this.writeHead(200,configurationHeader);
 				if(exist)fs.createReadStream(url).pipe(this);
 				else this.json({err:true,msg:'file not found!'})
 			})
