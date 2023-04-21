@@ -1,0 +1,20 @@
+{
+  "name": "bacaajaudah",
+  "version": "1.0.0",
+  "description": "web comic app",
+  "main": "app.js",
+  "scripts": {
+    "test": "node app"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github.com/gemasajaa/bacaajaudah"
+  },
+  "keywords": [
+    "comicsWeb",
+    "goone",
+    "nodejs"
+  ],
+  "author": "gema",
+  "license": "MIT"
+}
