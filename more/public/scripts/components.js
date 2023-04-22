@@ -1,4 +1,17 @@
 const header = makeElement('header',{
+	donationLink:'https://saweria.co/mrmongkeyy',
+	getUrl(category){
+		return `/file?fn=komik${category}.base&&dir=base`;
+	},
+	getImgNotFound(){
+		return '/file?fn=nofilefound.png';
+	},
+	getInfoLink(endpoint){
+		return `https://komiku-api.fly.dev/api/comic/info${endpoint}`;
+	},
+	getChapter(endpoint){
+		return `https://komiku-api.fly.dev/api/comic/chapter${endpoint}`;
+	},
 	style:`
 		background:white;
 		width:100%;
@@ -44,7 +57,7 @@ const header = makeElement('header',{
 		  >
 		    <input
 		    style="
-		      background:lightgray;
+		      background:white;
 			  
 			  padding:10px;
 			  border:1.5px solid lightgray;
@@ -114,7 +127,7 @@ const category = makeElement('div',{
 		border-top:1px solid black;
 	`,
 	onadded(){
-		const category = ['List','Rekomendasi','Populer','Riwayat'];
+		const category = ['List','Rekomendasi','Populer','Riwayat','Donasi'];
 		category.forEach(item=>{
 			this.addChild(makeElement('div',{
 				style:`
@@ -154,7 +167,7 @@ const content = function(category){
 				if(box.getBoundingClientRect().y<-100 || box.getBoundingClientRect().y>this.offsetHeight+100){
 					hideElement(box.find('img'));
 				}else{
-					showElement(box.find('img'))
+					showElement(box.find('img'));
 				}
 			})
 			this.newContent();
@@ -184,9 +197,9 @@ const content = function(category){
 			}))
 			this.addChild(openLoading('Sedang memuat konten...'));
 			const loadingDiv = this.find('#loadingDiv');
-			if(category!='Riwayat'){
+			if(category!='Riwayat'&&category!='Donasi'){
 				cOn.get({
-					url:`/file?fn=komik${category}.base&&dir=base`,
+					url:find('header').getUrl(category),
 					onload(r){
 						loadingDiv.remove();
 						indicatorWorkingHandle(category);
@@ -194,33 +207,49 @@ const content = function(category){
 					}
 				});
 			}else{
-				//work with riwayat.
-				//open riwayat.
 				indicatorWorkingHandle(category);
-				const data = (!localStorage['riwayat']?[]:JSON.parse(localStorage['riwayat'])); 
-				//JSON.parse(localStorage['riwayat'])||[];
-				//handling null.
-				if(is_null(data)){
+				//work with donation.
+				if(category==='Donasi'){
 					loadingDiv.remove();
 					find('#container').innerHTML = `
-						<div
-						style="
-							display:flex;
-							height:100%;
-							align-items:center;
-						"
-						>
+						<div>
 							<span
 							style="
 								padding:10px;
 								background:white;
 							"
-							>Belum ada data!</span>
+							>Terimakasih Mas Bro!</span>
 						</div>
 					`;
+					open(find('header').donationLink,'_blank');
 				}else{
-					displayContent(data,true,[0,data.length-1]);
-					loadingDiv.remove();
+					//work with riwayat.
+					//open riwayat.
+					const data = !localStorage['riwayat']?[]:JSON.parse(localStorage['riwayat']); 
+					//JSON.parse(localStorage['riwayat'])||[];
+					//handling null.
+					if(is_null(data)){
+						loadingDiv.remove();
+						find('#container').innerHTML = `
+							<div
+							style="
+								display:flex;
+								height:100%;
+								align-items:center;
+							"
+							>
+								<span
+								style="
+									padding:10px;
+									background:white;
+								"
+								>Belum ada data!</span>
+							</div>
+						`;
+					}else{
+						displayContent(data,true,[0,data.length-1]);
+						loadingDiv.remove();
+					}
 				}
 			}
 		}
@@ -301,7 +330,7 @@ const makeContentBox = function(content,index){
 		onadded(){
 			//handling img err,
 			this.find('img').onerror = function(){
-				this.src = '/file?fn=nofilefound.png';
+				this.src = find('header').getImgNotFound();
 			}
 			this.findall('div').forEach(div=>{
 				div.onclick = ()=>{
@@ -315,7 +344,7 @@ const makeContentBox = function(content,index){
 const getInfo = function(endpoint,forRiwayat){
 	find('main').addChild(openLoading('Sedang memuat data...',(loading)=>{
 		cOn.get({
-			url:`https://komiku-api.fly.dev/api/comic/info${endpoint}`,
+			url:find('header').getInfoLink(endpoint),
 			onload(r){
 				loading.remove();
 				processLink(this.getJSONResponse().data,forRiwayat);
@@ -472,7 +501,7 @@ const processLink = function(content,forRiwayat){
 }
 
 const saveData = function(content){
-	const data = (!localStorage['riwayat']?[]:JSON.parse(localStorage['riwayat']));
+	const data = !localStorage['riwayat']?[]:JSON.parse(localStorage['riwayat']);
 	//check includes one.
 	const titleList = [];
 	data.forEach(item=>{titleList.push(item.title)});
@@ -597,7 +626,7 @@ const openReader = function(content){
 						const loading = openLoading('Memuat Kontent...');
 						find('main').addChild(loading);
 						cOn.get({
-							url:`https://komiku-api.fly.dev/api/comic/chapter${this.endpoint}`,
+							url:find('header').getChapter(this.endpoint),
 							onload(){
 								chapterDisplay(this.getJSONResponse().data.image);
 								loading.remove();

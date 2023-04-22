@@ -81,6 +81,9 @@ module.exports = {
 						#readerBox{
 							width:50%;
 						}
+						#anouncebox{
+							width:auto;
+						}
 						@media screen and (max-width:900px){
 							#content{
 								width:100%;
@@ -121,6 +124,9 @@ module.exports = {
 								justify-content:space-between;
 							}
 							#readerBox{
+								width:100%;
+							}
+							#anouncebox{
 								width:100%;
 							}
 						}

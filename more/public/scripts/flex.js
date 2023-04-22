@@ -28,10 +28,10 @@ document.body.onload = function(){
 				`,
 				innerHTML:`
 					<div
+					id=anouncebox
 					style="
 						background:white;
 						padding:20px;
-						max-width:50%;
 					"
 					>
 						<div
@@ -65,6 +65,13 @@ document.body.onload = function(){
 							margin-bottom:10px;
 						"
 						>
+							<span id=donationbutton
+							style="
+								background:Black;
+								padding:10px;
+								color:white;
+								cursor:pointer;
+							">Donasi</span>
 							<span id=buttonclose
 							style="
 								background:Black;
@@ -79,6 +86,9 @@ document.body.onload = function(){
 					this.find('#buttonclose').onclick = function(){
 						find('#anouncePop').remove();
 					};
+					this.find('#donationbutton').onclick = function(){
+						open(find('header').donationLink,'_blank');
+					}
 				}
 			}))
 		}
