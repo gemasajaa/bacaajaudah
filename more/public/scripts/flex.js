@@ -84,6 +84,7 @@ document.body.onload = function(){
 				`,
 				onadded(){
 					this.find('#buttonclose').onclick = function(){
+						find('main').requestFullscreen();
 						find('#anouncePop').remove();
 					};
 					this.find('#donationbutton').onclick = function(){
