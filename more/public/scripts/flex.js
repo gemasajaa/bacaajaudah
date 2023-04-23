@@ -67,14 +67,14 @@ document.body.onload = function(){
 						>
 							<span id=donationbutton
 							style="
-								background:Black;
+								background:#00d0ff;
 								padding:10px;
 								color:white;
 								cursor:pointer;
 							">Donasi</span>
 							<span id=buttonclose
 							style="
-								background:Black;
+								background:#00d0ff;
 								padding:10px;
 								color:white;
 								cursor:pointer;
@@ -84,7 +84,7 @@ document.body.onload = function(){
 				`,
 				onadded(){
 					this.find('#buttonclose').onclick = function(){
-						find('main').requestFullscreen();
+						//find('main').requestFullscreen();
 						find('#anouncePop').remove();
 					};
 					this.find('#donationbutton').onclick = function(){

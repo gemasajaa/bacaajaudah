@@ -38,7 +38,7 @@ const header = makeElement('header',{
 			<span
 			style="
 				font-size:15px;
-				color:black;
+				color:blacks;
 			"
 			id=titletohide
 			>NgomikAjaUdah</span>
@@ -60,17 +60,17 @@ const header = makeElement('header',{
 		    style="
 		      background:white;
 			  
-			  padding:10px;
-			  border:1.5px solid lightgray;
+					padding:10px;
+					border:1.5px solid #00d0ff;
 		    "
 		    placeholder='Cari Komik...'
 		    ><button
 		    style="
-		      background:black;
+		      background:#00d0ff;
 		      color:white;
-			  padding:10px;
-			  border:1.5px solid black;
-			  border-left:0;
+					padding:10px;
+					border:1.5px solid #00d0ff;
+					border-left:0;
 		    "
 		    >Go</button>
 		  </div>
@@ -155,7 +155,7 @@ const category = makeElement('div',{
 const content = function(category){
 	return makeElement('content',{
 		style:`
-			background:black;
+			background:#00d0ff;
 			height:100%;
 			width:100%;
 			display:flex;
@@ -286,6 +286,7 @@ const makeContentBox = function(content,index){
 			margin:5px;
 			height:200px;
 			cursor:pointer;
+			color:black;
 		`,
 		content,
 		innerHTML:`
@@ -463,7 +464,7 @@ const processLink = function(content,forRiwayat){
 								<span
 								style="
 									padding:10px;
-									background:black;
+									background:#00d0ff;
 									color:white;
 									border-radius:5px;
 									cursor:pointer;
@@ -474,7 +475,7 @@ const processLink = function(content,forRiwayat){
 								<span
 								style="
 									padding:10px;
-									background:black;
+									background:#00d0ff;
 									color:white;
 									border-radius:5px;
 									cursor:pointer;
@@ -574,7 +575,7 @@ const openReader = function(content){
 					<span
 					style="
 						padding:10px;
-						background:black;
+						background:#00d0ff;
 						cursor:pointer;
 						color:white;
 					"
