@@ -40,6 +40,7 @@ const header = makeElement('header',{
 				font-size:15px;
 				color:black;
 			"
+			id=titletohide
 			>NgomikAjaUdah</span>
 		</div>
 		<div
@@ -86,10 +87,10 @@ const searchHandling = function(el){
 		if(input.value!=''){
 			const result = [];
 			find('header').contentBackup.forEach(item=>{
-				if(item.title.toLowerCase().indexOf(input.value)!=-1)result.push(item);
+				if(item.title.toLowerCase().indexOf(input.value.toLowerCase())!=-1)result.push(item);
 			})
 			find('#container').innerHTML = '';
-			displayContent(result,true,[0,(result.length-1>20)?20:result.length-1]);
+			displayContent(result,false,[0,(result.length-1>20)?20:result.length-1]);
 			//handline no result.
 			if(result.length===0){
 				find('#container').innerHTML = `
@@ -263,7 +264,7 @@ const indicatorWorkingHandle = function(category){
 
 const displayContent = function(contents,save=true,load){
 	if(save)find('header').contentBackup = contents;
-	for(let i=load[0];i<=load[1];i++){
+	for(let i=load[0];i<load[1];i++){
 		find('#container').addChild(makeContentBox(contents[i],i));
 	}
 	find('content').content = {
@@ -283,7 +284,6 @@ const makeContentBox = function(content,index){
 			justify-content:center;
 			flex-direction:column;
 			margin:5px;
-			width:200px;
 			height:200px;
 			cursor:pointer;
 		`,
@@ -301,7 +301,6 @@ const makeContentBox = function(content,index){
 				style="
 					object-fit:cover;
 					background:white;
-					width:200px;
 					height:150px;
 				"
 				>
@@ -588,10 +587,10 @@ const openReader = function(content){
 			//handling close button.
 			this.find('#closeToogle').onclick = ()=>{this.remove()}
 			//display chapter.
-			const chapterDisplay = (imgs)=>{
+			const chapterDisplay = (imgs,loading)=>{
 				const imgbox = this.find('#imgbox');
 				imgbox.innerHTML = '';
-				imgs.forEach(img=>{
+				imgs.forEach((img,i)=>{
 					imgbox.appendChild(makeElement('div',{
 						style:`
 							background:black;
@@ -608,6 +607,9 @@ const openReader = function(content){
 						`
 					}))
 				})
+				imgbox.querySelector('img').onload = ()=>{
+					loading.remove();
+				}
 			}
 			//work on chapter.
 			for(let i=content.chapter_list.length-1;i>=0;i--){
@@ -628,8 +630,7 @@ const openReader = function(content){
 						cOn.get({
 							url:find('header').getChapter(this.endpoint),
 							onload(){
-								chapterDisplay(this.getJSONResponse().data.image);
-								loading.remove();
+								chapterDisplay(this.getJSONResponse().data.image,loading);
 							}
 						});
 						//handle clicked.

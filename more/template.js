@@ -84,6 +84,15 @@ module.exports = {
 						#anouncebox{
 							width:auto;
 						}
+						#contentBox{
+							width:200px;
+						}
+						#contentBox div img{
+							width:200px;
+						}
+						#titletohide{
+							display:inline-block;
+						}
 						@media screen and (max-width:900px){
 							#content{
 								width:100%;
@@ -128,6 +137,15 @@ module.exports = {
 							}
 							#anouncebox{
 								width:100%;
+							}
+							#contentBox{
+								width:100%;
+							}
+							#contentBox div img{
+								width:100%;
+							}
+							#titletohide{
+								display:none;
 							}
 						}
 					</style>
