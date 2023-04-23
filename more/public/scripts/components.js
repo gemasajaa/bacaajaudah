@@ -607,7 +607,7 @@ const openReader = function(content){
 						`
 					}))
 				})
-				imgbox.querySelector('img').onload = ()=>{
+				imgbox.querySelectorAll('img')[0].onload = ()=>{
 					loading.remove();
 				}
 			}
