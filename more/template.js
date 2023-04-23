@@ -7,7 +7,8 @@ module.exports = {
 					<title>NgomikAjaUdah, baca komik dengan nyaman!</title>
 					<meta name=viewport content=width=device-width,initial-scale=1>
 					<style>
-						body{
+						main{
+							-webkit-tap-highlight-color:transparent;
 							user-select:none;
 						}
 						#content{
