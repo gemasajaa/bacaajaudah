@@ -90,7 +90,7 @@ const searchHandling = function(el){
 				if(item.title.toLowerCase().indexOf(input.value.toLowerCase())!=-1)result.push(item);
 			})
 			find('#container').innerHTML = '';
-			displayContent(result,false,[0,(result.length-1>20)?20:result.length-1]);
+			displayContent(result,false,[0,(result.length-1>30)?30:result.length-1]);
 			//handline no result.
 			if(result.length===0){
 				find('#container').innerHTML = `
@@ -204,7 +204,7 @@ const content = function(category){
 					onload(r){
 						loadingDiv.remove();
 						indicatorWorkingHandle(category);
-						displayContent(JSON.parse(r.target.responseText).data,true,[0,20]);
+						displayContent(JSON.parse(r.target.responseText).data,true,[0,30]);
 					}
 				});
 			}else{
@@ -267,9 +267,14 @@ const displayContent = function(contents,save=true,load){
 	for(let i=load[0];i<load[1];i++){
 		find('#container').addChild(makeContentBox(contents[i],i));
 	}
+	//saving some data.
 	find('content').content = {
 		contents,
 		load
+	}
+	//handling for big screen.
+	if(find('content').scrollTop===0){
+		
 	}
 }
 
